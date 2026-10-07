@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>My Prescriptions</title>
+<style>
+/* Reset */
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family: Arial, sans-serif;
+}
+
+/* Colors */
+:root{
+    --primary: #FFD700; /* Yellow */
+    --black: #000;
+    --white: #fff;
+    --gray: #f4f4f4;
+}
+
+/* Body */
+body{
+    background: var(--gray);
+    color: var(--black);
+}
+
+/* Navbar */
+.navbar{
+    background: var(--black);
+    padding: 15px 50px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 15px;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    border-radius: 0 0 15px 15px;
+}
+
+.navbar a{
+    color: var(--white);
+    text-decoration: none;
+    padding: 8px 20px;
+    border-radius: 50px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    background: rgba(255,255,255,0.05);
+}
+
+.navbar a:hover{
+    background: var(--primary);
+    color: var(--black);
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+}
+
+/* Container */
+.container{
+    max-width: 1200px;
+    margin: 30px auto;
+    padding: 20px;
+}
+
+/* Heading */
+h2{
+    text-align: center;
+    color: var(--primary);
+    margin-bottom: 20px;
+    letter-spacing: 1px;
+}
+
+/* Table */
+table{
+    width:100%;
+    border-collapse: collapse;
+    background: var(--white);
+    border-radius:10px;
+    overflow:hidden;
+    box-shadow:0 5px 15px rgba(0,0,0,0.1);
+}
+
+th, td{
+    padding:12px;
+    border:1px solid #ddd;
+    text-align:center;
+    transition: background 0.3s, color 0.3s;
+}
+
+th{
+    background: var(--black);
+    color: var(--white);
+}
+
+tr:nth-child(even){
+    background:#f9f9f9;
+}
+
+tr:hover{
+    background: var(--primary);
+    color: var(--black);
+}
+
+/* Responsive */
+@media(max-width:768px){
+    .navbar{
+        flex-direction: column;
+        gap:10px;
+        border-radius: 0 0 15px 15px;
+    }
+    table, th, td{
+        font-size:14px;
+    }
+}
+</style>
+</head>
+<body>
+
+<!-- Navbar -->
+<div class="navbar">
+    <a href="/patient/dashboard/">Dashboard</a>
+    <a href="/patient/book-appointment/">Book Appointment</a>
+    <a href="/patient/my-appointments/">My Appointments</a>
+    <a href="/patient/prescriptions/">Prescriptions</a>
+    <a href="/patient/logout/">Logout</a>
+</div>
+
+<!-- Container -->
+<div class="container">
+
+<h2>My Prescriptions</h2>
+
+<table>
+<tr>
+<th>Doctor</th>
+<th>Diagnosis</th>
+<th>Medicine</th>
+<th>Notes</th>
+<th>Next Visit</th>
+</tr>
+
+{% for p in prescriptions %}
+<tr>
+<td>{{p.appointment.doctor.name}}</td>
+<td>{{p.diagnosis}}</td>
+<td>{{p.medicine}}</td>
+<td>{{p.notes}}</td>
+<td>{{p.next_visit}}</td>
+</tr>
+{% endfor %}
+
+</table>
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Add Prescription</title>
+
+<style>
+/* Reset */
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family: Arial, sans-serif;
+}
+
+/* Colors */
+:root{
+    --primary: #FFD700; /* Yellow */
+    --black: #000;
+    --white: #fff;
+    --gray: #f5f5f5;
+    --green: #28a745;
+    --darkgreen: #218838;
+}
+
+/* Body */
+body{
+    background: var(--gray);
+    color: var(--black);
+}
+
+/* Navbar */
+.navbar{
+    background: var(--black);
+    padding: 15px 50px;
+    display: flex;
+    gap: 20px;
+    position: sticky;
+    top:0;
+    z-index: 1000;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+}
+
+.navbar a{
+    color: var(--white);
+    text-decoration: none;
+    padding: 8px 20px;
+    border-radius: 50px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    background: rgba(255,255,255,0.05);
+}
+
+.navbar a:hover{
+    background: var(--primary);
+    color: var(--black);
+    transform: translateY(-2px);
+}
+
+/* Container */
+.container{
+    width:500px;
+    max-width: 90%;
+    margin:50px auto;
+    background: var(--white);
+    padding:30px;
+    border-radius:10px;
+    box-shadow:0 5px 15px rgba(0,0,0,0.2);
+    transition: transform 0.3s;
+}
+
+.container:hover{
+    transform: translateY(-3px);
+}
+
+/* Heading */
+h2{
+    text-align:center;
+    color: var(--primary);
+    margin-bottom: 25px;
+}
+
+/* Labels */
+label{
+    font-weight:bold;
+    margin-bottom:5px;
+    display:block;
+    color: var(--black);
+}
+
+/* Inputs and Textareas */
+input, textarea{
+    width:100%;
+    padding:12px;
+    margin-bottom:15px;
+    border:1px solid var(--black);
+    border-radius:5px;
+    outline:none;
+    transition: 0.3s;
+}
+
+input:focus, textarea:focus{
+    border-color: var(--primary);
+    box-shadow:0 0 5px var(--primary);
+}
+
+/* Button */
+button{
+    background: var(--primary);
+    color: var(--black);
+    padding:12px;
+    border:none;
+    border-radius:50px;
+    width:100%;
+    font-weight:bold;
+    font-size:16px;
+    cursor:pointer;
+    transition:0.3s;
+}
+
+button:hover{
+    background:#e6c200;
+}
+
+/* Responsive */
+@media(max-width:600px){
+    .container{
+        padding:20px;
+    }
+}
+</style>
+
+</head>
+<body>
+
+<!-- Navbar -->
+<div class="navbar">
+    <a href="/doctor/dashboard/">Dashboard</a>
+    <a href="/doctor/appointments/">Appointments</a>
+    <a href="/doctor/logout/">Logout</a>
+</div>
+
+<!-- Form Container -->
+<div class="container">
+<h2>Add Prescription</h2>
+
+<form method="POST">
+{% csrf_token %}
+
+<label>Diagnosis</label>
+<textarea name="diagnosis" placeholder="Enter diagnosis" required></textarea>
+
+<label>Medicine</label>
+<textarea name="medicine" placeholder="Enter medicines" required></textarea>
+
+<label>Notes</label>
+<textarea name="notes" placeholder="Additional notes"></textarea>
+
+<label>Next Visit Date</label>
+<input type="date" name="next_visit" required>
+
+<button type="submit">Save Prescription</button>
+
+</form>
+</div>
+
+</body>
+</html>

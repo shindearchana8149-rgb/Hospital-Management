@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Doctor Appointments</title>
+
+<style>
+/* Reset */
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family: Arial, sans-serif;
+}
+
+/* Colors */
+:root{
+    --primary: #FFD700; /* Yellow */
+    --black: #000;
+    --white: #fff;
+    --gray: #f5f5f5;
+    --green: #28a745;
+    --darkgreen: #218838;
+}
+
+/* Body */
+body{
+    background: var(--gray);
+    color: var(--black);
+    margin:0;
+}
+
+/* Navbar */
+.navbar{
+    background: var(--black);
+    padding: 15px 50px;
+    display: flex;
+    gap: 20px;
+    position: sticky;
+    top:0;
+    z-index: 1000;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+}
+
+.navbar a{
+    color: var(--white);
+    text-decoration: none;
+    padding: 8px 20px;
+    border-radius: 50px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    background: rgba(255,255,255,0.05);
+}
+
+.navbar a:hover{
+    background: var(--primary);
+    color: var(--black);
+    transform: translateY(-2px);
+}
+
+/* Container */
+.container{
+    padding: 20px;
+}
+
+/* Heading */
+h2{
+    color: var(--primary);
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+/* Table */
+table{
+    width:100%;
+    border-collapse: collapse;
+    background: var(--white);
+    border-radius:10px;
+    overflow:hidden;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+th, td{
+    padding: 12px 10px;
+    text-align: center;
+    border-bottom:1px solid #ddd;
+}
+
+th{
+    background: var(--black);
+    color: var(--white);
+    text-transform: uppercase;
+}
+
+tr:hover{
+    background: rgba(255,215,0,0.1);
+    transition: 0.3s;
+}
+
+/* Images */
+img{
+    width:50px;
+    height:50px;
+    border-radius:50%;
+    object-fit: cover;
+    border:2px solid var(--primary);
+}
+
+/* Button */
+button{
+    background: var(--green);
+    color: var(--white);
+    padding: 6px 12px;
+    border:none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+button:hover{
+    background: var(--darkgreen);
+}
+
+/* Responsive */
+@media(max-width:700px){
+    table, thead, tbody, th, td, tr{
+        display:block;
+    }
+    th{
+        display:none;
+    }
+    td{
+        text-align:right;
+        padding-left:50%;
+        position: relative;
+    }
+    td::before{
+        content: attr(data-label);
+        position: absolute;
+        left:10px;
+        font-weight:bold;
+        text-transform: uppercase;
+    }
+    img{
+        margin:auto;
+        display:block;
+    }
+    button{
+        width:100%;
+        margin-top:5px;
+    }
+}
+</style>
+
+</head>
+<body>
+
+<!-- Navbar -->
+<div class="navbar">
+    <a href="/doctor/dashboard/">Dashboard</a>
+    <a href="/doctor/appointments/">Appointments</a>
+    <a href="/doctor/logout/">Logout</a>
+</div>
+
+<div class="container">
+
+<h2>My Appointments</h2>
+
+<table>
+<tr>
+<th>Patient</th>
+<th>Photo</th>
+<th>Date</th>
+<th>Time</th>
+<th>Status</th>
+<th>Action</th>
+</tr>
+
+{% for a in appointments %}
+<tr>
+<td data-label="Patient">{{a.patient.name}}</td>
+<td data-label="Photo"><img src="{{a.patient.photo.url}}" alt="Patient Photo"></td>
+<td data-label="Date">{{a.date}}</td>
+<td data-label="Time">{{a.time}}</td>
+<td data-label="Status">{{a.status}}</td>
+<td data-label="Action">
+    <a href="/doctor/add-prescription/{{a.id}}">
+        <button>Add Prescription</button>
+    </a>
+</td>
+</tr>
+{% endfor %}
+
+</table>
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Patient Registration</title>
+
+<style>
+/* Reset */
+* {
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family: Arial, sans-serif;
+}
+
+/* Colors */
+:root{
+    --primary: #FFD700; /* Yellow */
+    --black: #000;
+    --white: #fff;
+    --gray: #f4f4f4;
+}
+
+/* Body */
+body {
+    background: var(--gray);
+    color: var(--black);
+}
+
+/* Navbar */
+.navbar{
+    background: var(--black);
+    padding: 15px 50px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 15px;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    border-radius: 0 0 10px 10px;
+}
+
+.navbar a{
+    color: var(--white);
+    text-decoration: none;
+    padding: 8px 20px;
+    border-radius: 50px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    background: rgba(255,255,255,0.05);
+}
+
+.navbar a:hover{
+    background: var(--primary);
+    color: var(--black);
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+}
+
+/* Container */
+.container{
+    width: 450px;
+    max-width: 90%;
+    margin: 50px auto;
+    background: var(--white);
+    padding: 30px;
+    box-shadow: 0px 5px 15px rgba(0,0,0,0.2);
+    border-radius: 10px;
+}
+
+/* Heading */
+h2{
+    text-align:center;
+    color: var(--primary);
+    margin-bottom: 25px;
+    letter-spacing: 1px;
+}
+
+/* Inputs, select, textarea */
+input, select, textarea{
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    margin-bottom: 15px;
+    border: 1px solid var(--black);
+    border-radius: 5px;
+    outline: none;
+    transition: 0.3s;
+}
+
+input:focus, select:focus, textarea:focus{
+    border-color: var(--primary);
+    box-shadow: 0 0 5px var(--primary);
+}
+
+/* Labels */
+label{
+    font-weight: bold;
+    color: var(--black);
+}
+
+/* Button */
+button{
+    background: var(--primary);
+    color: var(--black);
+    padding: 12px;
+    border: none;
+    border-radius: 50px;
+    width: 100%;
+    font-weight: bold;
+    font-size: 16px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+button:hover{
+    background: #e6c200;
+}
+
+/* Login Link */
+.login-link{
+    text-align: center;
+    margin-top: 15px;
+    font-size: 14px;
+}
+
+.login-link a{
+    color: var(--primary);
+    text-decoration: none;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+.login-link a:hover{
+    color: #e6c200;
+    text-decoration: underline;
+}
+
+/* Form Alignment */
+form{
+    display: flex;
+    flex-direction: column;
+}
+
+/* File input styling */
+input[type="file"]{
+    padding: 5px;
+}
+
+/* Responsive */
+@media(max-width:500px){
+    .container{
+        padding: 20px;
+    }
+    h2{
+        font-size: 24px;
+    }
+    .navbar{
+        flex-direction: column;
+        gap: 10px;
+        border-radius: 0 0 10px 10px;
+    }
+}
+</style>
+
+<script>
+function validateForm(){
+    var name=document.forms["form"]["name"].value;
+    var phone=document.forms["form"]["phone"].value;
+    var password=document.forms["form"]["password"].value;
+
+    if(name==""){
+        alert("Enter Name");
+        return false;
+    }
+
+    if(phone.length!=10 || isNaN(phone)){
+        alert("Enter Valid Phone Number");
+        return false;
+    }
+
+    if(password.length<4){
+        alert("Password must be minimum 4 characters");
+        return false;
+    }
+}
+</script>
+
+</head>
+<body>
+
+<!-- Navbar -->
+<div class="navbar">
+    <a href="/">Home</a>
+    <a href="/patient/login/">Patient Login</a>
+    <a href="/patient/register/">Patient Register</a>
+</div>
+
+<!-- Container -->
+<div class="container">
+
+<h2>Patient Registration</h2>
+
+<form method="POST" enctype="multipart/form-data" name="form" onsubmit="return validateForm()">
+{% csrf_token %}
+
+<label>Name</label>
+<input type="text" name="name" placeholder="Enter your full name">
+
+<label>Photo</label>
+<input type="file" name="photo">
+
+<label>Age</label>
+<input type="number" name="age" placeholder="Enter your age">
+
+<label>Gender</label>
+<select name="gender">
+<option value="">Select</option>
+<option>Male</option>
+<option>Female</option>
+</select>
+
+<label>Phone</label>
+<input type="text" name="phone" placeholder="Enter your 10-digit phone number">
+
+<label>Address</label>
+<textarea name="address" placeholder="Enter your address"></textarea>
+
+<label>Username</label>
+<input type="text" name="username" placeholder="Enter your username">
+
+<label>Password</label>
+<input type="password" name="password" placeholder="Enter a password">
+
+<button type="submit">Register</button>
+
+</form>
+
+<div class="login-link">
+    Already have an account? <a href="/patient/login/">Login here</a>
+</div>
+
+</div>
+
+</body>
+</html>
